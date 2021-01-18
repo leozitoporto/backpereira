@@ -19,7 +19,7 @@ export default class CreateUsers1610732178667 implements MigrationInterface {
             type: 'varchar',
           },
           {
-            name: 'tp_user',
+            name: 'tpuser',
             type: 'varchar',
           },
           {
