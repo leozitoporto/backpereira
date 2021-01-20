@@ -6,6 +6,12 @@ import SalesRepository from '../repositories/SalesRepository';
 const salesRouter = Router();
 const salesRepository = new SalesRepository();
 
+salesRouter.get('/', (request, response) => {
+  const sales = salesRepository.all();
+
+  return response.json(sales);
+});
+
 salesRouter.post('/', (request, response) => {
   const {
     name, price, obs, tpsale, dtvalid, urlimg,
@@ -20,7 +26,14 @@ salesRouter.post('/', (request, response) => {
     });
   }
 
-  const sale = salesRepository.create(name, price, obs, tpsale, dtvalid, urlimg);
+  const sale = salesRepository.create({
+    name,
+    price,
+    obs,
+    dtvalid: parsedDate,
+    urlimg,
+    tpsale,
+  });
 
   return response.json(sale);
 });
