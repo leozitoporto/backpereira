@@ -1,4 +1,4 @@
-import Sale from '../models/Sales';
+import Sale from '../models/Sale';
 
 interface CreateSaleDTO {
   name: string;
