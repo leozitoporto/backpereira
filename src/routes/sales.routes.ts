@@ -1,24 +1,26 @@
 import { Router } from 'express';
-import { uuid } from 'uuidv4';
+import { startOfHour, parseISO, isBefore } from 'date-fns';
+
+import SalesRepository from '../repositories/SalesRepository';
 
 const salesRouter = Router();
-
-const sales = [];
+const salesRepository = new SalesRepository();
 
 salesRouter.post('/', (request, response) => {
   const {
-    name, price, obs, dtvalid,
+    name, price, obs, tpsale, dtvalid, urlimg,
   } = request.body;
 
-  const sale = {
-    id: uuid(),
-    name,
-    price,
-    obs,
-    dtvalid,
-  };
+  // retiro h:m:s e transformo em formato de data do javascript
+  const parsedDate = startOfHour(parseISO(dtvalid));
 
-  sales.push(sale);
+  if (isBefore(parsedDate, Date.now())) {
+    return response.status(400).json({
+      message: 'Você não pode criar uma venda com data de validade passada.',
+    });
+  }
+
+  const sale = salesRepository.create(name, price, obs, tpsale, dtvalid, urlimg);
 
   return response.json(sale);
 });
