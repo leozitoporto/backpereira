@@ -1,31 +1,26 @@
-import { uuid } from 'uuidv4';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
+@Entity('sales')
 class Sales {
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
+  @Column()
   name: string;
 
+  @Column('number')
   price: number;
 
+  @Column()
   obs: string;
 
+  @Column('timestamp')
   dtvalid: Date;
 
+  @Column()
   urlimg: string;
 
+  @Column()
   tpsale: string;
-
-  constructor({
-    name, price, obs, dtvalid, urlimg, tpsale,
-  }: Omit<Sales, 'id'>) {
-    // Omit = excluo uma propriedade('id') de dentro de um tipo('Sales')
-    this.id = uuid();
-    this.name = name;
-    this.price = price;
-    this.obs = obs;
-    this.dtvalid = dtvalid;
-    this.urlimg = urlimg;
-    this.tpsale = tpsale;
-  }
 }
 export default Sales;
