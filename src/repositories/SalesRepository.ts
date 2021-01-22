@@ -1,36 +1,18 @@
+import { Entity, EntityRepository, Repository } from 'typeorm';
 import Sale from '../models/Sale';
 
-interface CreateSaleDTO {
-  name: string;
-  price: number;
-  obs: string;
-  dtvalid: Date;
-  urlimg: string;
-  tpsale: string;
-}
+// interface CreateSaleDTO {
+//   name: string;
+//   price: number;
+//   obs: string;
+//   dtvalid: Date;
+//   urlimg: string;
+//   tpsale: string;
+// }
 
-class SalesRepository {
-  private sales: Sale[];
+@EntityRepository(Sale)
+class SalesRepository extends Repository<Sale> {
 
-  constructor() {
-    this.sales = [];
-  }
-
-  public all(): Sale[] {
-    return this.sales;
-  }
-
-  public create({
-    name, price, obs, dtvalid, urlimg, tpsale,
-  }: CreateSaleDTO): Sale {
-    const sale = new Sale({
-      name, price, obs, dtvalid, urlimg, tpsale,
-    });
-
-    this.sales.push(sale);
-
-    return sale;
-  }
 }
 
 export default SalesRepository;

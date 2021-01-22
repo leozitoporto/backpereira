@@ -1,4 +1,5 @@
 import { isBefore, startOfHour } from 'date-fns';
+import { getCustomRepository } from 'typeorm';
 import Sale from '../models/Sale';
 import SalesRepository from '../repositories/SalesRepository';
 
@@ -12,22 +13,18 @@ interface Request {
 }
 
 class CreateSaleService {
-  private salesRepository: SalesRepository;
-
-  constructor(salesRepository: SalesRepository) {
-    this.salesRepository = salesRepository;
-  }
-
-  public execute({
+  public async execute({
     name, price, obs, tpsale, dtvalid, urlimg,
-  }: Request): Sale {
+  }: Request): Promise<Sale> {
+    const salesRepository = getCustomRepository(SalesRepository);
+
     const validDate = startOfHour(dtvalid);
 
     if (isBefore(validDate, Date.now())) {
       throw Error('Você não pode criar uma venda com data de validade passada');
     }
 
-    const sale = this.salesRepository.create({
+    const sale = salesRepository.create({
       name,
       price,
       obs,
@@ -35,6 +32,9 @@ class CreateSaleService {
       urlimg,
       tpsale,
     });
+
+    await salesRepository.save(sale);
+
     return sale;
   }
 }

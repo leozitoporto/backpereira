@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import express from 'express';
 import './shared/infra/typeorm';
 import routes from './routes';

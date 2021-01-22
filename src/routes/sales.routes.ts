@@ -1,20 +1,21 @@
 import { Router } from 'express';
 import { parseISO } from 'date-fns';
+import { getCustomRepository } from 'typeorm';
 
 import SalesRepository from '../repositories/SalesRepository';
 
 import CreateSaleService from '../services/CreateSaleService';
 
 const salesRouter = Router();
-const salesRepository = new SalesRepository();
 
-salesRouter.get('/', (request, response) => {
-  const sales = salesRepository.all();
+salesRouter.get('/', async (request, response) => {
+  const salesRepository = getCustomRepository(SalesRepository);
+  const sales = await salesRepository.find();
 
   return response.json(sales);
 });
 
-salesRouter.post('/', (request, response) => {
+salesRouter.post('/', async (request, response) => {
   try {
     const {
       name, price, obs, tpsale, dtvalid, urlimg,
@@ -22,9 +23,9 @@ salesRouter.post('/', (request, response) => {
 
     const parsedDate = parseISO(dtvalid);
 
-    const createSale = new CreateSaleService(salesRepository);
+    const createSale = new CreateSaleService();
 
-    const sale = createSale.execute({
+    const sale = await createSale.execute({
       name, price, obs, dtvalid: parsedDate, urlimg, tpsale,
     });
 

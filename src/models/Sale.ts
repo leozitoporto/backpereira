@@ -8,7 +8,7 @@ class Sales {
   @Column()
   name: string;
 
-  @Column('number')
+  @Column('numeric')
   price: number;
 
   @Column()
