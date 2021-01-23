@@ -26,10 +26,12 @@ export default class CreateUsers1610732178667 implements MigrationInterface {
           {
             name: 'tpuser',
             type: 'varchar',
+            default: "'C'",
           },
           {
             name: 'urlimg',
             type: 'varchar',
+            isNullable: true,
           },
           {
             name: 'password',
