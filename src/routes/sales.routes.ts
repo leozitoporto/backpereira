@@ -18,15 +18,15 @@ salesRouter.get('/', async (request, response) => {
 salesRouter.post('/', async (request, response) => {
   try {
     const {
-      name, price, obs, tpsale, dtvalid, urlimg,
+      name, price, obs, tp_sale, dt_valid, url_img,
     } = request.body;
 
-    const parsedDate = parseISO(dtvalid);
+    const parsedDate = parseISO(dt_valid);
 
     const createSale = new CreateSaleService();
 
     const sale = await createSale.execute({
-      name, price, obs, dtvalid: parsedDate, urlimg, tpsale,
+      name, price, obs, dt_valid: parsedDate, url_img, tp_sale,
     });
 
     return response.json(sale);

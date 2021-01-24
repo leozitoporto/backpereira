@@ -5,9 +5,9 @@ import Sale from '../models/Sale';
 //   name: string;
 //   price: number;
 //   obs: string;
-//   dtvalid: Date;
-//   urlimg: string;
-//   tpsale: string;
+//   dt_valid: Date;
+//   url_img: string;
+//   tp_sale: string;
 // }
 
 @EntityRepository(Sale)

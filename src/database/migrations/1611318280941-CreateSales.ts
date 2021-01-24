@@ -29,18 +29,18 @@ export default class CreateSales1611318280941 implements MigrationInterface {
             isNullable: true,
           },
           {
-            name: 'tpsale',
+            name: 'tp_sale',
             type: 'varchar',
             isNullable: false,
             default: "'V'",
           },
           {
-            name: 'dtvalid',
+            name: 'dt_valid',
             type: 'timestamp',
             isNullable: true,
           },
           {
-            name: 'urlimg',
+            name: 'url_img',
             type: 'varchar',
             isNullable: true,
           },

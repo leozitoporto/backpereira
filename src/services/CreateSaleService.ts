@@ -7,18 +7,18 @@ interface Request {
   name: string;
   price: number;
   obs: string;
-  dtvalid: Date;
-  urlimg: string;
-  tpsale: string;
+  dt_valid: Date;
+  url_img: string;
+  tp_sale: string;
 }
 
 class CreateSaleService {
   public async execute({
-    name, price, obs, tpsale, dtvalid, urlimg,
+    name, price, obs, tp_sale, dt_valid, url_img,
   }: Request): Promise<Sale> {
     const salesRepository = getCustomRepository(SalesRepository);
 
-    const validDate = startOfHour(dtvalid);
+    const validDate = startOfHour(dt_valid);
 
     if (isBefore(validDate, Date.now())) {
       throw Error('Você não pode criar uma venda com data de validade passada');
@@ -28,9 +28,9 @@ class CreateSaleService {
       name,
       price,
       obs,
-      dtvalid: validDate,
-      urlimg,
-      tpsale,
+      dt_valid: validDate,
+      url_img,
+      tp_sale,
     });
 
     await salesRepository.save(sale);

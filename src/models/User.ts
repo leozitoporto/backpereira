@@ -14,7 +14,7 @@ class Users {
   tpuser: string;
 
   @Column()
-  urlimg: string;
+  url_img: string;
 
   @Column()
   email: string;

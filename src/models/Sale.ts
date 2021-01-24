@@ -17,13 +17,13 @@ class Sales {
   obs: string;
 
   @Column('timestamp')
-  dtvalid: Date;
+  dt_valid: Date;
 
   @Column()
-  urlimg: string;
+  url_img: string;
 
   @Column()
-  tpsale: string;
+  tp_sale: string;
 
   @CreateDateColumn()
   created_at: Date;
