@@ -2,16 +2,19 @@ import { Router } from 'express';
 import { parseISO } from 'date-fns';
 import { getCustomRepository } from 'typeorm';
 
+import ensureAuthenticated from '../middlewares/ensureAuthenticated';
+
 import SalesRepository from '../repositories/SalesRepository';
 
 import CreateSaleService from '../services/CreateSaleService';
 
 const salesRouter = Router();
 
+salesRouter.use(ensureAuthenticated);
+
 salesRouter.get('/', async (request, response) => {
   const salesRepository = getCustomRepository(SalesRepository);
   const sales = await salesRepository.find();
-
   return response.json(sales);
 });
 

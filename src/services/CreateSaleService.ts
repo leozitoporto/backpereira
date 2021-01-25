@@ -3,6 +3,8 @@ import { getCustomRepository } from 'typeorm';
 import Sale from '../models/Sale';
 import SalesRepository from '../repositories/SalesRepository';
 
+import AppError from '../errors/AppError';
+
 interface Request {
   name: string;
   price: number;
@@ -21,7 +23,7 @@ class CreateSaleService {
     const validDate = startOfHour(dt_valid);
 
     if (isBefore(validDate, Date.now())) {
-      throw Error('Você não pode criar uma venda com data de validade passada');
+      throw new AppError('Você não pode criar uma venda com data de validade passada');
     }
 
     const sale = salesRepository.create({
