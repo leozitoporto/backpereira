@@ -10,13 +10,13 @@ interface Request {
   price: number;
   obs: string;
   dt_valid: Date;
-  url_img: string;
+  avatar: string;
   tp_sale: string;
 }
 
 class CreateSaleService {
   public async execute({
-    name, price, obs, tp_sale, dt_valid, url_img,
+    name, price, obs, tp_sale, dt_valid, avatar,
   }: Request): Promise<Sale> {
     const salesRepository = getCustomRepository(SalesRepository);
 
@@ -31,7 +31,7 @@ class CreateSaleService {
       price,
       obs,
       dt_valid: validDate,
-      url_img,
+      avatar,
       tp_sale,
     });
 

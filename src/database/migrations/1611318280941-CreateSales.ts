@@ -40,7 +40,7 @@ export default class CreateSales1611318280941 implements MigrationInterface {
             isNullable: true,
           },
           {
-            name: 'url_img',
+            name: 'avatar',
             type: 'varchar',
             isNullable: true,
           },

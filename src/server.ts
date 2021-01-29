@@ -2,9 +2,11 @@ import 'reflect-metadata';
 import express from 'express';
 import './shared/infra/typeorm';
 import routes from './routes';
+import uploadConfig from './config/upload';
 
 const app = express();
 
+app.use('/files', express.static(uploadConfig.directory));
 app.use(express.json());
 
 app.use(routes);

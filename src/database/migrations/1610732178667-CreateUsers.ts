@@ -29,7 +29,7 @@ export default class CreateUsers1610732178667 implements MigrationInterface {
             default: "'C'",
           },
           {
-            name: 'url_img',
+            name: 'avatar',
             type: 'varchar',
             isNullable: true,
           },

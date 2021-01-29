@@ -20,7 +20,7 @@ class Sales {
   dt_valid: Date;
 
   @Column()
-  url_img: string;
+  avatar: string;
 
   @Column()
   tp_sale: string;
