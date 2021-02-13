@@ -13,11 +13,21 @@
         "sourceType": "module"
     },
     "plugins": [
-        "@typescript-eslint"
+        "@typescript-eslint",
+        "prettier"
     ],
     "rules": {
+      "semi": "off",
+      "max-len": ["error", { "code": 120 }],
+      "@typescript-eslint/semi": ["error"],
+      "multiline": "never",
+      "no-underscore-dangle": "off",
+      "prettier/prettier": "error",
       "camelcase": "off",
+      "no-useless-constructor": "off",
       "@typescript-eslint/camelcase": ["off"],
+      "@typescript-eslint/interface-name-prefix": "off",
+      "@typescript-eslint/no-unused-vars": "off",
       "import/extensions": [
         "error",
         "ignorePackages",
