@@ -13,6 +13,7 @@
     "@typescript-eslint/eslint-plugin": "^4.13.0",
     "@typescript-eslint/parser": "^4.13.0",
     "bcryptjs": "^2.4.3",
+    "celebrate": "^13.0.4",
     "class-transformer": "^0.3.2",
     "cors": "^2.8.5",
     "date-fns": "^2.16.1",
