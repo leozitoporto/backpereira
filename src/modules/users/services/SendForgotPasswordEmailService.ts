@@ -23,7 +23,7 @@ class SendForgotPasswordEmailService {
 
      @inject('UserTokensRepository')
      private userTokensRepository: IUserTokensRepository,
-  ) { }
+  ) {}
 
   public async execute({ email }: IRequest): Promise<void> {
     const user = await this.usersRepository.findByEmail(email);
@@ -46,7 +46,7 @@ class SendForgotPasswordEmailService {
         name: user.name,
         email: user.email,
       },
-      subject: '[SVIP] Recuperação de senha',
+      subject: '[BOUTIQUE DE CARNES PEREIRA] Recuperação de senha',
       templateData: {
         file: forgotPasswordTemplate,
         variables: {
