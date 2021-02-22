@@ -1,9 +1,10 @@
-import { isBefore, startOfHour } from 'date-fns';
+import { format, isBefore, startOfHour } from 'date-fns';
 import AppError from '@shared/errors/AppError';
 import { injectable, inject } from 'tsyringe';
 
 import Sale from '../infra/typeorm/entities/Sale';
 import ISalesRepository from '../repositories/ISalesRepository';
+import INotificationsRepository from '@modules/notifications/repositories/INotificationsRepository';
 
 interface IRequest {
   name: string;
@@ -19,6 +20,9 @@ class CreateSaleService {
   constructor(
     @inject('SalesRepository')
     private salesRepository: ISalesRepository,
+
+    @inject('NotificationsRepository')
+    private motificationsRepository: INotificationsRepository,
   ) {}
 
   public async execute({
@@ -45,6 +49,13 @@ class CreateSaleService {
       avatar,
       tp_sale,
     });
+
+    const dateFormatted = format(dt_valid, "dd/MM/yyyy 'às' HH:mm'H'");
+
+    await this.motificationsRepository.create({
+      recipient_id: sale.id,
+      content: `Nova venda criada. (${name} - validade: ${dateFormatted})`,
+    })
 
     return sale;
   }
