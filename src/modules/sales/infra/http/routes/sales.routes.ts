@@ -1,5 +1,7 @@
 import { Router } from 'express';
 
+import {celebrate} from 'celebrate';
+
 import SalesController from '../controllers/SalesController';
 import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
 
