@@ -14,8 +14,8 @@ export default {
 
   defaults: {
     from: {
-      email: 'svip@zungasoft.net',
-      name: 'Equipe SaloonVip',
+      email: 'boutiquepereira@zungasoft.net',
+      name: 'Equipe Boutique de Carnes Pereira',
     },
   },
 } as IMailConfig;
