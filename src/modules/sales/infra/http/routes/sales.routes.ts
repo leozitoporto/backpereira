@@ -3,10 +3,12 @@ import { Router } from 'express';
 import {celebrate} from 'celebrate';
 
 import SalesController from '../controllers/SalesController';
+import ListSaleController from '../controllers/ListSaleController';
 import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
 
 const salesRouter = Router();
-const salesControlelr = new SalesController();
+const salesController = new SalesController();
+const listSaleController = new ListSaleController();
 
 salesRouter.use(ensureAuthenticated);
 
@@ -15,6 +17,7 @@ salesRouter.use(ensureAuthenticated);
 //   return response.json(sales);
 // });
 
-salesRouter.post('/', salesControlelr.create);
+salesRouter.post('/', salesController.create);
+salesRouter.get('/', listSaleController.index);
 
 export default salesRouter;

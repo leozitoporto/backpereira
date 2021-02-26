@@ -1,17 +1,9 @@
-import { EntityRepository, getRepository, Repository } from 'typeorm';
+import { EntityRepository, getRepository, Repository, Raw } from 'typeorm';
 
 import ISalesRepository from '@modules/sales/repositories/ISalesRepository';
 import ICreateSaleDTO from '@modules/sales/dtos/ICreateSaleDTO';
 import Sale from '../entities/Sale';
 
-interface CreateSaleDTO {
-  name: string;
-  price: number;
-  obs: string;
-  dt_valid: Date;
-  avatar: string;
-  tp_sale: string;
-}
 
 class SalesRepository implements ISalesRepository {
   private ormRepository: Repository<Sale>;
@@ -20,9 +12,26 @@ class SalesRepository implements ISalesRepository {
     this.ormRepository = getRepository(Sale);
   }
 
-  // public assync all(): Sale[] {
-  //   return this.sales;
-  // }
+  //  public async all(): Sale[] {
+  //    return this.sales;
+  //  }
+
+  public async findByDate(
+    dt_valid: Date,
+  ): Promise<Sale[] | undefined> {
+
+    const sales = await this.ormRepository.find({
+      where: {
+        dt_valid: Raw(
+          dateFieldName =>
+          `to_char(${dateFieldName}, 'DD-MM-YYYY') <= to_char(CURRENT_DATE, 'DD-MM-YYYY')`,
+
+        ),
+      },
+    });
+
+    return sales;
+  }
 
   public async create({
     name,
