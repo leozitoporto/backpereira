@@ -6,6 +6,7 @@ import Sale from '../infra/typeorm/entities/Sale';
 import ISalesRepository from '../repositories/ISalesRepository';
 import INotificationsRepository from '@modules/notifications/repositories/INotificationsRepository';
 
+
 interface IRequest {
   name: string;
   price: number;
@@ -56,6 +57,7 @@ class CreateSaleService {
       recipient_id: sale.id,
       content: `Nova venda criada. (${name} - validade: ${dateFormatted})`,
     })
+
 
     return sale;
   }

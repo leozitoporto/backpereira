@@ -25,7 +25,6 @@ class SalesRepository implements ISalesRepository {
         dt_valid: Raw(
           dateFieldName =>
           `to_char(${dateFieldName}, 'DD-MM-YYYY') <= to_char(CURRENT_DATE, 'DD-MM-YYYY')`,
-
         ),
       },
     });

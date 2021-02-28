@@ -26,20 +26,12 @@ class ListSalesService {
   constructor(
     @inject('SalesRepository')
     private salesRepository: ISalesRepository,
-
-    @inject('CacheProvider')
-    private cacheProvider: ICacheProvider,
   ) {}
 
    public async execute({ dt_valid }: IRequest): Promise<Sale[]> {
     const saleValid = startOfHour(dt_valid);
 
-    // if (isBefore(saleValid, Date.now())) {
-    //   throw new AppError('Você não pode criar uma venda com data passada');
-    // }
-
      const  sales = await this.salesRepository.findByDate(saleValid);
-
 
 
     return sales;
