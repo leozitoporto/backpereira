@@ -12,9 +12,14 @@ class SalesRepository implements ISalesRepository {
     this.ormRepository = getRepository(Sale);
   }
 
-  //  public async all(): Sale[] {
-  //    return this.sales;
-  //  }
+   public async all(): Promise<Sale[] | undefined> {
+     return this.ormRepository.find();
+   }
+
+  public async findById(id: string): Promise<Sale | undefined> {
+    const sale = await this.ormRepository.findOne(id);
+    return sale;
+  }
 
   public async findByDate(
     dt_valid: Date,
@@ -24,7 +29,7 @@ class SalesRepository implements ISalesRepository {
       where: {
         dt_valid: Raw(
           dateFieldName =>
-          `to_char(${dateFieldName}, 'DD-MM-YYYY') <= to_char(CURRENT_DATE, 'DD-MM-YYYY')`,
+          `${dateFieldName} >= NOW()`,
         ),
       },
     });
@@ -32,26 +37,16 @@ class SalesRepository implements ISalesRepository {
     return sales;
   }
 
-  public async create({
-    name,
-    price,
-    obs,
-    dt_valid,
-    avatar,
-    tp_sale,
-  }: ICreateSaleDTO): Promise<Sale> {
-    const sale = this.ormRepository.create({
-      name,
-      price,
-      obs,
-      dt_valid,
-      avatar,
-      tp_sale,
-    });
+  public async create(saleData: ICreateSaleDTO): Promise<Sale> {
+    const sale = this.ormRepository.create(saleData);
 
     await this.ormRepository.save(sale);
 
     return sale;
+  }
+
+  public async save(sale: Sale): Promise<Sale> {
+    return this.ormRepository.save(sale);
   }
 }
 

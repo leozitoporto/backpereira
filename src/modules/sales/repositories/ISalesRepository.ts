@@ -7,6 +7,9 @@ import ICreateSaleDTO from '../dtos/ICreateSaleDTO';
 export default interface ISalesRepository {
   create(data: ICreateSaleDTO): Promise<Sale>;
    findByDate(dt_valid: Date): Promise<Sale[] | undefined>;
+   findById(sale_id: string): Promise<Sale | undefined>;
+   save(sale: Sale): Promise<Sale>;
+   all(): Promise<Sale[] | undefined>;
   // findAllInMonthFromProvider(
   //   data: IFindAllInMonthFromProviderDTO,
   //  ): Promise<Appointment[]>;
