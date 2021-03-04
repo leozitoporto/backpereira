@@ -22,6 +22,8 @@ salesRouter.use(ensureAuthenticated);
 salesRouter.post('/', salesController.create);
 salesRouter.get('/', listSaleController.index);
 salesRouter.get('/listallsales', salesController.index);
+salesRouter.put('/', salesController.update);
+
 
 salesRouter.patch(
   '/avatar',

@@ -5,6 +5,7 @@ import { classToClass } from 'class-transformer';
 
 import CreateSaleService from '@modules/sales/services/CreateSaleService';
 import ListAllSaleService from '@modules/sales/services/ListAllSaleService';
+import UpdateSaleService from '@modules/sales/services/UpdateSaleService';
 
 export default class SaleController {
 
@@ -34,5 +35,25 @@ export default class SaleController {
     });
 
     return response.json(sale);
+  }
+
+  public async update(request: Request, response: Response): Promise<Response> {
+
+    const { sale_id, name, price, obs, dt_valid, tp_sale } = request.body;
+
+    const parsedDate = parseISO(dt_valid);
+
+    const updateSale = container.resolve(UpdateSaleService);
+
+    const sale = await updateSale.execute({
+      sale_id,
+      name,
+      price,
+      dt_valid: parsedDate,
+      obs,
+      tp_sale,
+    });
+
+    return response.json(classToClass(sale));
   }
 }
