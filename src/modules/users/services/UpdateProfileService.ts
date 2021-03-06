@@ -34,7 +34,7 @@ class UpdateProfileService {
     const user = await this.usersRepository.findById(user_id);
 
     if (!user) {
-      throw new AppError('Usuario não encontrado');
+      throw new AppError('Usuário não encontrado');
     }
 
     const userWithUpdatedEmail = await this.usersRepository.findByEmail(email);
@@ -46,7 +46,7 @@ class UpdateProfileService {
     user.email = email;
 
     if (password && !old_password) {
-      throw new AppError('Deve ser informdo o a sehua antiga');
+      throw new AppError('Deve ser informado a senha antiga');
     }
 
     if (password && old_password) {
@@ -56,7 +56,7 @@ class UpdateProfileService {
       );
 
       if (!checkOldPassword) {
-        throw new AppError('Sehua antiga informada não corresponde');
+        throw new AppError('Senha antiga informada não corresponde');
       }
       user.password = await this.hashProvider.generateHash(password);
     }
