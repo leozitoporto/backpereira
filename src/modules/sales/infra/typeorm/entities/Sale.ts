@@ -31,6 +31,9 @@ class Sales {
   @Column()
   tp_sale: string;
 
+  @Column()
+  weight: number;
+
   @CreateDateColumn()
   created_at: Date;
 

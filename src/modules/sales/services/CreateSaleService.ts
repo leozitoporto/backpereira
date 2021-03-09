@@ -14,6 +14,7 @@ interface IRequest {
   dt_valid: Date;
   avatar: string;
   tp_sale: string;
+  weight: number;
 }
 
 @injectable()
@@ -23,7 +24,7 @@ class CreateSaleService {
     private salesRepository: ISalesRepository,
 
     @inject('NotificationsRepository')
-    private motificationsRepository: INotificationsRepository,
+    private notificationsRepository: INotificationsRepository,
   ) {}
 
   public async execute({
@@ -33,6 +34,7 @@ class CreateSaleService {
     tp_sale,
     dt_valid,
     avatar,
+    weight,
   }: IRequest): Promise<Sale> {
     const validDate = startOfHour(dt_valid);
 
@@ -49,11 +51,12 @@ class CreateSaleService {
       dt_valid: validDate,
       avatar,
       tp_sale,
+      weight,
     });
 
     const dateFormatted = format(dt_valid, "dd/MM/yyyy 'às' HH:mm'H'");
 
-    await this.motificationsRepository.create({
+    await this.notificationsRepository.create({
       recipient_id: sale.id,
       content: `Nova venda criada. (${name} - validade: ${dateFormatted})`,
     })

@@ -19,7 +19,7 @@ export default class SaleController {
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
-    const { name, price, obs, tp_sale, dt_valid, avatar } = request.body;
+    const { name, price, obs, tp_sale, dt_valid, avatar, weight } = request.body;
 
     const parsedDate = parseISO(dt_valid);
 
@@ -32,6 +32,7 @@ export default class SaleController {
       dt_valid: parsedDate,
       avatar,
       tp_sale,
+      weight,
     });
 
     return response.json(sale);
@@ -39,9 +40,12 @@ export default class SaleController {
 
   public async update(request: Request, response: Response): Promise<Response> {
 
-    const { sale_id, name, price, obs, dt_valid, tp_sale } = request.body;
+    const { sale_id, name, price, obs, dt_valid, tp_sale, weight } = request.body;
 
-    const parsedDate = parseISO(dt_valid);
+    if (dt_valid) {
+      const parsedDate = parseISO(dt_valid);
+      dt_valid : parsedDate;
+    }
 
     const updateSale = container.resolve(UpdateSaleService);
 
@@ -49,9 +53,10 @@ export default class SaleController {
       sale_id,
       name,
       price,
-      dt_valid: parsedDate,
+      dt_valid,
       obs,
       tp_sale,
+      weight,
     });
 
     return response.json(classToClass(sale));

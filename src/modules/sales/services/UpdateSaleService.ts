@@ -12,6 +12,7 @@ interface IRequest {
   dt_valid: Date;
   obs: string;
   tp_sale: string;
+  weight: number;
 }
 
 @injectable()
@@ -29,6 +30,7 @@ class UpdateSaleService {
     dt_valid,
     obs,
     tp_sale,
+    weight,
   }: IRequest): Promise<Sale> {
     const sale = await this.salesRepository.findById(sale_id);
 
@@ -41,6 +43,7 @@ class UpdateSaleService {
     sale.dt_valid = dt_valid;
     sale.obs = obs;
     sale.tp_sale = tp_sale;
+    sale.weight = weight;
 
     return this.salesRepository.save(sale);
   }
